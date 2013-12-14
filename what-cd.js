@@ -6,8 +6,6 @@ var http = require('http');
 var api = new PutIO("TOKEN-HERE");
 var client = new WhatCD("https://what.cd", "USERNAME", "PASSWORD");
 
-
-
 client.top10_torrents(function(err, data) {
     if(err) {
         return console.log(err);
@@ -27,14 +25,11 @@ function timeout(client, data) {
         }
         console.log(data.torrent.id);
 
-
-
         api.transfers.add('https://what.cd/torrents.php?action=download&id='+ data.torrent.id+'&authkey=6463b1c5ee3ae28c9851e9889c128336&torrent_pass=zuleuwqrjeadavd29a3n0vif5v3i4d47', function(res) {
             console.log(res);
         });
         sleep.sleep(2);
     });
-
 
     var options = {
         host: 'what.cd',
@@ -47,8 +42,8 @@ function timeout(client, data) {
             console.log(resp);
         });
     }).on("error", function(e){
-            console.log("Got error: " + e.message);
-        });
+      console.log("Got error: " + e.message);
+    });
 }
 
 api.files.list(0, function(data) {
