@@ -25,7 +25,7 @@ function timeout(client, data) {
         }
         console.log(data.torrent.id);
 
-        api.transfers.add('https://what.cd/torrents.php?action=download&id='+ data.torrent.id+'&authkey=6463b1c5ee3ae28c9851e9889c128336&torrent_pass=zuleuwqrjeadavd29a3n0vif5v3i4d47', function(res) {
+        api.transfers.add('https://what.cd/torrents.php?action=download&id='+ data.torrent.id+'&authkey=56be905d3a149ce273a39d2e4d6c8a89&torrent_pass=zuleuwqrjeadavd29a3n0vif5v3i4d47', function(res) {
             console.log(res);
         });
         sleep.sleep(2);
@@ -34,16 +34,20 @@ function timeout(client, data) {
     var options = {
         host: 'what.cd',
         port: 80,
-        path: '/torrents.php?action=download&id='+data.torrentId
+        path: '/torrents.php?action=download&id='+data.torrentId+'&authkey=56be905d3a149ce273a39d2e4d6c8a89&torrent_pass=zuleuwqrjeadavd29a3n0vif5v3i4d47'
     };
 
     http.get(options, function(resp){
+        var pageData = "";
+        resp.setEncoding('utf8');
+        console.log(resp);
         resp.on('data', function(chunk){
-            console.log(resp);
+            pageData += chunk;
+            //console.log(pageData);
         });
     }).on("error", function(e){
-      console.log("Got error: " + e.message);
-    });
+            console.log("Got error: " + e.message);
+        });
 }
 
 api.files.list(0, function(data) {
